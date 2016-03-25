@@ -1,0 +1,18 @@
+body {
+  background-color: #e8ebf0;
+  color: #605e5e;
+}
+
+div {
+  border: 1px dotted #647694;
+}
+
+#board {
+  background-color: #909eb4;
+  width: 950px;
+  height: 500px;
+}
+
+#title {
+  text-align: center;
+}
