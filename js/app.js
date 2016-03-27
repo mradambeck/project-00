@@ -10,59 +10,73 @@ function Player(playerNumber){
       $doc.on("keydown", function(event){
         var $playerOne = $('#player-one');
         var playerPosition = $playerOne.position();
-        switch(event.which) {
-          case 39: // right arrow
-            event.preventDefault();
-            if (playerPosition.left < 200){ //890
-              $playerOne.animate({left: playerPosition.left+5}, 75);
-            }
-            scoreBoard.checkWin(playerPosition.left, "Player One");
-            break;
-          case 37: // left arrow
-            event.preventDefault();
-            $playerOne.animate({left: playerPosition.left-5}, 75);
-            scoreBoard.checkWin(playerPosition.left, "Player One");
-            break;
-          case 38: // up arrow
-            event.preventDefault();
-            $playerOne.animate({top: 20, left: playerPosition.left+10}, 300);
-            scoreBoard.checkWin(playerPosition.left, "Player One");
-            break;
-          case 40: // down arrow
-            event.preventDefault();
-            $playerOne.animate({top: 430, left: playerPosition.left+10}, 300);
-            scoreBoard.checkWin(playerPosition.left, "Player One");
-            break;
+        if (event.which === 39){
+          event.preventDefault();
+          if (playerPosition.left < 200){ //890
+                $playerOne.animate({left: playerPosition.left+5}, 75);
+              }
+              scoreBoard.checkWin(playerPosition.left, "Player One");
         }
+        // switch(event.which) {
+        //   case 39: // right arrow
+        //     event.preventDefault();
+        //     if (playerPosition.left < 200){ //890
+        //       $playerOne.animate({left: playerPosition.left+5}, 75);
+        //     }
+        //     scoreBoard.checkWin(playerPosition.left, "Player One");
+        //     break;
+        //   case 37: // left arrow
+        //     event.preventDefault();
+        //     $playerOne.animate({left: playerPosition.left-5}, 75);
+        //     scoreBoard.checkWin(playerPosition.left, "Player One");
+        //     break;
+        //   case 38: // up arrow
+        //     event.preventDefault();
+        //     $playerOne.animate({top: 20, left: playerPosition.left+10}, 300);
+        //     scoreBoard.checkWin(playerPosition.left, "Player One");
+        //     break;
+        //   case 40: // down arrow
+        //     event.preventDefault();
+        //     $playerOne.animate({top: 430, left: playerPosition.left+10}, 300);
+        //     scoreBoard.checkWin(playerPosition.left, "Player One");
+        //     break;
+        // }
       });
     } else if (this.playerNumber === 2){
         $doc.on("keydown", function(event){
           var $playerTwo = $('#player-two');
           var playerPosition = $playerTwo.position();
-          switch(event.which) {
-            case 68: // right arrow
-              event.preventDefault();
-              if (playerPosition.left < 200){
-                $playerTwo.animate({left: playerPosition.left+5}, 75);
-              }
-              scoreBoard.checkWin(playerPosition.left, "Player Two");
-              break;
-            case 65: // left arrow
-              event.preventDefault();
-              $playerTwo.animate({left: playerPosition.left-5}, 75);
-              scoreBoard.checkWin(playerPosition.left, "Player Two");
-              break;
-            case 87: // up arrow
-              event.preventDefault();
-              $playerTwo.animate({top: 20, left: playerPosition.left+10}, 300);
-              scoreBoard.checkWin(playerPosition.left, "Player Two");
-              break;
-            case 83: // down arrow
-              event.preventDefault();
-              $playerTwo.animate({top: 430, left: playerPosition.left+10}, 300);
-              scoreBoard.checkWin(playerPosition.left, "Player Two");
-              break;
+          if (event.which === 68){
+            event.preventDefault();
+            if (playerPosition.left < 200){ //890
+                  $playerOne.animate({left: playerPosition.left+5}, 75);
+                }
+                scoreBoard.checkWin(playerPosition.left, "Player One");
           }
+          // switch(event.which) {
+          //   case 68: // right arrow
+          //     event.preventDefault();
+          //     if (playerPosition.left < 200){
+          //       $playerTwo.animate({left: playerPosition.left+5}, 75);
+          //     }
+          //     scoreBoard.checkWin(playerPosition.left, "Player Two");
+          //     break;
+          //   case 65: // left arrow
+          //     event.preventDefault();
+          //     $playerTwo.animate({left: playerPosition.left-5}, 75);
+          //     scoreBoard.checkWin(playerPosition.left, "Player Two");
+          //     break;
+          //   case 87: // up arrow
+          //     event.preventDefault();
+          //     $playerTwo.animate({top: 20, left: playerPosition.left+10}, 300);
+          //     scoreBoard.checkWin(playerPosition.left, "Player Two");
+          //     break;
+          //   case 83: // down arrow
+          //     event.preventDefault();
+          //     $playerTwo.animate({top: 430, left: playerPosition.left+10}, 300);
+          //     scoreBoard.checkWin(playerPosition.left, "Player Two");
+          //     break;
+          // }
         });
       }
   };
@@ -113,21 +127,26 @@ var gameStart = function(){
       // Countdown to ensure everyone starts at the same time
       $('#start-game').text("3");
 
-      var countDown = setInterval(function(){
-        // clearTimeout(countDown);
-        $('#start-game').text(function(i,num){
-          if(num==="3"){
-            return "2";
-          } else if (num ==="2"){
-            return "1";
-          } else if (num ==="1"){
-            clearTimeout(countDown);
-            playerOne.movement();
-            playerTwo.movement();
-            return "Go!";
-          }
-        });
-      }, 1000);
+      // var countDown = setInterval(function(){
+      //   // clearTimeout(countDown);
+      //   $('#start-game').text(function(i,num){
+      //     if(num==="3"){
+      //       return "2";
+      //     } else if (num ==="2"){
+      //       return "1";
+      //     } else if (num ==="1"){
+      //       clearTimeout(countDown);
+      //       playerOne.movement();
+      //       playerTwo.movement();
+      //       return "Go!";
+      //     }
+      //   });
+      // }, 1000);
+
+      playerOne.movement();
+      playerTwo.movement();
+      $('#start-game').addClass('display-none');
+
     }
   });
 };
