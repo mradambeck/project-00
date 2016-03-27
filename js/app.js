@@ -1,4 +1,5 @@
 console.log("Javascript running");
+var $doc = $(document);
 
 function Player(playerNumber){
   this.playerNumber = playerNumber;
@@ -6,7 +7,7 @@ function Player(playerNumber){
   // assigning movement to directional keys
   this.movement = function(){
     if (this.playerNumber === 1){
-      $( document ).on("keydown", function(event){
+      $doc.on("keydown", function(event){
         var $playerOne = $('#player-one');
         var playerPosition = $playerOne.position();
         switch(event.which) {
@@ -33,7 +34,7 @@ function Player(playerNumber){
         }
       });
     } else if (this.playerNumber === 2)
-      $( document ).on("keydown", function(event){
+      $doc.on("keydown", function(event){
         var $playerTwo = $('#player-two');
         var playerPosition = $playerTwo.position();
         switch(event.which) {
@@ -83,14 +84,31 @@ var scoreBoard = {
   }
 };
 
-// Gameplay start
+// Setup Players
 var playerOne = new Player(1,'"#player-one"');
-playerOne.movement();
-
 var playerTwo = new Player(2,'#player-two');
-playerTwo.movement();
 
-$( document ).ready(function() {
+$doc.ready(function() {
   console.log( "Document ready!" );
+
+// Start game with spacebar
+  $doc.on("keydown", function startGame(event){
+    if (event.keyCode === 32){
+      // Countdown so everyone starts on time
+      $('#start-game').text("3");
+      var countDown = setInterval(function(){
+        $('#start-game').text(function(i,num){
+          if(parseInt(num)>1){
+            return parseInt(num)-1;
+          } else {
+            clearTimeout(countDown);
+            playerOne.movement();
+            playerTwo.movement();
+            return "Go!";
+          }
+        });
+      }, 1000);
+    }
+  });
 
 });
