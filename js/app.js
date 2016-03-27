@@ -1,10 +1,10 @@
 console.log("Javascript running");
 
-function Player(playerNumber, divID){
+function Player(playerNumber){
   this.playerNumber = playerNumber;
   this.playerName = "Player " + playerNumber;
-  this.divID = divID;
-  this.movement = function(divID){
+  // assigning movement to directional keys
+  this.movement = function(){
     if (this.playerNumber === 1){
       $( document ).on("keydown", function(event){
         var $playerOne = $('#player-one');
@@ -67,6 +67,7 @@ var scoreBoard = {
   p2Score: 0,
   winner: false,
   checkWin: function(position, winner){
+    // checks position to see if at the end of the game board
     if (position > 885){
       alert (winner + "wins!");
       if (winner === "Player One"){
@@ -82,8 +83,10 @@ var scoreBoard = {
   }
 };
 
+// Gameplay start
 var playerOne = new Player(1,'"#player-one"');
 playerOne.movement();
+
 var playerTwo = new Player(2,'#player-two');
 playerTwo.movement();
 
