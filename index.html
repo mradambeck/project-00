@@ -24,20 +24,27 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-4" id="title"><h1>sideCar</h1></div>
+      <div class="col-xs-10" id="title"><h1>sideCar</h1></div>
     </div>
     <div class="row">
       <div class="col-sm-10" id="board">
-        <div id="start-game">PRESS SPACEBAR TO START...</div>
+        <div class="row" id="start-game">
+          <button class="btn-primary btn-lg" id="start-btn">PRESS SPACEBAR TO START...</button>
+        </div>
         <div id="player-one">
           <!-- <img src="images/ship01.gif"> -->
         </div>
         <div id="player-two"></div>
+        <div class="row" id="reset-row">
+          <button class="btn-danger btn-lg btn-block display-none" id="reset-btn">NEW GAME</button>
+        </div>
       </div>
       <div class="col-sm-2" id="score-board">
-        <p><h3>SCORE</h3></p>
-        <p><h4>Player 1: <span class="scores" id="p1-score">0</span></h4></p>
-        <p><h4>Player 2: <span class="scores" id="p2-score">0</span></h4></p>
+        <div class= "col-sm-12">
+          <div class= "row"><h3>SCORE</h3></div>
+          <div class= "row"><h4>Player 1: <span class="scores" id="p1-score">0</span></h4></div>
+          <div class= "row"><h4>Player 2: <span class="scores" id="p2-score">0</span></h4></div>
+        </div>
       </div>
     </div>
   </div>

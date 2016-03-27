@@ -13,7 +13,9 @@ function Player(playerNumber){
         switch(event.which) {
           case 39: // right arrow
             event.preventDefault();
-            $playerOne.animate({left: playerPosition.left+5}, 75);
+            if (playerPosition.left < 890){
+              $playerOne.animate({left: playerPosition.left+5}, 75);
+            }
             scoreBoard.checkWin(playerPosition.left, "Player One");
             break;
           case 37: // left arrow
@@ -40,7 +42,9 @@ function Player(playerNumber){
         switch(event.which) {
           case 68: // right arrow
             event.preventDefault();
-            $playerTwo.animate({left: playerPosition.left+5}, 75);
+            if (playerPosition.left < 890){
+              $playerTwo.animate({left: playerPosition.left+5}, 75);
+            }
             scoreBoard.checkWin(playerPosition.left, "Player Two");
             break;
           case 65: // left arrow
@@ -63,13 +67,20 @@ function Player(playerNumber){
   };
 }
 
+// Scoreboard object
 var scoreBoard = {
   p1Score: 0,
   p2Score: 0,
-  winner: false,
+  gameOver: false,
+  reset: function(){
+    $('#player-one').animate({left: 20}, 300);
+    $('#player-two').animate({left: 20}, 300);
+    this.gameOver = false;
+    $('#reset-btn').addClass('display-none');
+  },
   checkWin: function(position, winner){
     // checks position to see if at the end of the game board
-    if (position > 885){
+    if (position > 885 && !this.gameOver){
       alert (winner + "wins!");
       if (winner === "Player One"){
         this.p1Score++;
@@ -78,13 +89,18 @@ var scoreBoard = {
         this.p2Score++;
         $('#p2-score').text(this.p2Score);
       }
-      this.winner = true;
+      this.gameOver = true;
       console.log("p1: "+this.p1Score + "p2: " + this.p2Score + "winner: " + winner);
+      $('#reset-btn').removeClass('display-none');
+      $('#reset-btn').click(function(){
+        scoreBoard.reset();
+      }
+    );
     }
   }
 };
 
-// Setup Players
+// Creates player objects
 var playerOne = new Player(1,'"#player-one"');
 var playerTwo = new Player(2,'#player-two');
 
@@ -94,7 +110,7 @@ $doc.ready(function() {
 // Start game with spacebar
   $doc.on("keydown", function startGame(event){
     if (event.keyCode === 32){
-      // Countdown so everyone starts on time
+      // Countdown to ensure everyone starts at the same time
       $('#start-game').text("3");
       var countDown = setInterval(function(){
         $('#start-game').text(function(i,num){

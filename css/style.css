@@ -7,6 +7,10 @@ div {
 
 }
 
+.display-none {
+  display: none;
+}
+
 .scores  {
   font-weight: bold;
 }
@@ -16,6 +20,7 @@ div {
   width: 950px;
   height: 500px;
   text-align: center;
+  /*position: relative;*/
 }
 
 #player-one {
@@ -34,6 +39,21 @@ div {
   width: 50px;
   height: 50px;
   background-color: #647694;
+}
+
+#reset-btn {
+  position: absolute;
+  width: 950px;
+  top: 200px;
+  border-radius: 0;
+}
+
+#score-board {
+  text-align: center;
+}
+
+#start-btn {
+  border-radius: 0;
 }
 
 #start-game {
