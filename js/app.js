@@ -13,7 +13,7 @@ function Player(playerNumber){
         switch(event.which) {
           case 39: // right arrow
             event.preventDefault();
-            if (playerPosition.left < 890){
+            if (playerPosition.left < 200){ //890
               $playerOne.animate({left: playerPosition.left+5}, 75);
             }
             scoreBoard.checkWin(playerPosition.left, "Player One");
@@ -35,35 +35,36 @@ function Player(playerNumber){
             break;
         }
       });
-    } else if (this.playerNumber === 2)
-      $doc.on("keydown", function(event){
-        var $playerTwo = $('#player-two');
-        var playerPosition = $playerTwo.position();
-        switch(event.which) {
-          case 68: // right arrow
-            event.preventDefault();
-            if (playerPosition.left < 890){
-              $playerTwo.animate({left: playerPosition.left+5}, 75);
-            }
-            scoreBoard.checkWin(playerPosition.left, "Player Two");
-            break;
-          case 65: // left arrow
-            event.preventDefault();
-            $playerTwo.animate({left: playerPosition.left-5}, 75);
-            scoreBoard.checkWin(playerPosition.left, "Player Two");
-            break;
-          case 87: // up arrow
-            event.preventDefault();
-            $playerTwo.animate({top: 20, left: playerPosition.left+10}, 300);
-            scoreBoard.checkWin(playerPosition.left, "Player Two");
-            break;
-          case 83: // down arrow
-            event.preventDefault();
-            $playerTwo.animate({top: 430, left: playerPosition.left+10}, 300);
-            scoreBoard.checkWin(playerPosition.left, "Player Two");
-            break;
-        }
-      });
+    } else if (this.playerNumber === 2){
+        $doc.on("keydown", function(event){
+          var $playerTwo = $('#player-two');
+          var playerPosition = $playerTwo.position();
+          switch(event.which) {
+            case 68: // right arrow
+              event.preventDefault();
+              if (playerPosition.left < 200){
+                $playerTwo.animate({left: playerPosition.left+5}, 75);
+              }
+              scoreBoard.checkWin(playerPosition.left, "Player Two");
+              break;
+            case 65: // left arrow
+              event.preventDefault();
+              $playerTwo.animate({left: playerPosition.left-5}, 75);
+              scoreBoard.checkWin(playerPosition.left, "Player Two");
+              break;
+            case 87: // up arrow
+              event.preventDefault();
+              $playerTwo.animate({top: 20, left: playerPosition.left+10}, 300);
+              scoreBoard.checkWin(playerPosition.left, "Player Two");
+              break;
+            case 83: // down arrow
+              event.preventDefault();
+              $playerTwo.animate({top: 430, left: playerPosition.left+10}, 300);
+              scoreBoard.checkWin(playerPosition.left, "Player Two");
+              break;
+          }
+        });
+      }
   };
 }
 
@@ -76,11 +77,13 @@ var scoreBoard = {
     $('#player-one').animate({left: 20}, 300);
     $('#player-two').animate({left: 20}, 300);
     this.gameOver = false;
+    gameStart();
     $('#reset-btn').addClass('display-none');
+
   },
   checkWin: function(position, winner){
     // checks position to see if at the end of the game board
-    if (position > 885 && !this.gameOver){
+    if (position > 180 && !this.gameOver){ //885
       alert (winner + "wins!");
       if (winner === "Player One"){
         this.p1Score++;
@@ -94,29 +97,30 @@ var scoreBoard = {
       $('#reset-btn').removeClass('display-none');
       $('#reset-btn').click(function(){
         scoreBoard.reset();
+        $('#start-game').text("PRESS SPACEBAR TO START");
+        $('#start-game').addClass("btn-primary, btn-lg");
+        gameStart();
       }
     );
     }
   }
 };
 
-// Creates player objects
-var playerOne = new Player(1,'"#player-one"');
-var playerTwo = new Player(2,'#player-two');
-
-$doc.ready(function() {
-  console.log( "Document ready!" );
-
-// Start game with spacebar
+var gameStart = function(){
   $doc.on("keydown", function startGame(event){
+
     if (event.keyCode === 32){
       // Countdown to ensure everyone starts at the same time
       $('#start-game').text("3");
+
       var countDown = setInterval(function(){
+        // clearTimeout(countDown);
         $('#start-game').text(function(i,num){
-          if(parseInt(num)>1){
-            return parseInt(num)-1;
-          } else {
+          if(num==="3"){
+            return "2";
+          } else if (num ==="2"){
+            return "1";
+          } else if (num ==="1"){
             clearTimeout(countDown);
             playerOne.movement();
             playerTwo.movement();
@@ -126,5 +130,16 @@ $doc.ready(function() {
       }, 1000);
     }
   });
+};
+
+// Creates player objects
+var playerOne = new Player(1);
+var playerTwo = new Player(2);
+
+$doc.ready(function() {
+  console.log( "Document ready!" );
+
+// Start game with spacebar
+gameStart();
 
 });

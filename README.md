@@ -13,11 +13,13 @@ The goal of this is to have a two player game in which players mash buttons to t
 
 - Two players
 - Score board
+- Countdown to start
+- Reset button
 
 ## Planned Features
 
 - Graphics
-- rocks and stuff
+- Rocks and stuff to avoid
 
 ---
 
