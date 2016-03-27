@@ -7,6 +7,10 @@ div {
 
 }
 
+.scores  {
+  font-weight: bold;
+}
+
 #board {
   background-color: #909eb4;
   width: 950px;
