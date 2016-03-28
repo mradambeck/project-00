@@ -13,13 +13,12 @@ The goal of this is to have a two player game in which players mash buttons to t
 
 - Two players
 - Score board
-- Countdown to start
 - Reset button
 
 ## Planned Features
 
-- Graphics
-- Rocks and stuff to avoid
+- Wanted to add some rocks and stuff to avoid
+- Need to fix up some issues between gameplay. Players are still able to move when the game is over.
 
 ---
 

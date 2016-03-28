@@ -6,12 +6,12 @@ function Player(playerNumber){
   this.playerName = "Player " + playerNumber;
   // assigning movement to directional keys
   this.movement = function(){
-    // if (scoreBoard.gameOver === false){
-    console.log('scoreboard: ', scoreBoard);
+    // if (gamePlay.gameOver === false){
+    console.log('gamePlay: ', gamePlay);
     console.log("calling movement");
       if (this.playerNumber === 1){
         $doc.on("keydown", function(event){
-          // if (scoreBoard.gameOver === false){
+          // if (gamePlay.gameOver === false){
             var $playerOne = $('#player-one');
             var playerPosition = $playerOne.position();
             if (event.which === 39){
@@ -21,13 +21,13 @@ function Player(playerNumber){
                 $playerOne.animate({left: playerPosition.left+20}, 50);
               }
                   console.log('player1: checking win');
-              scoreBoard.checkWin(playerPosition.left, "Player One"); //shouldn't call another object from a different object
+              gamePlay.checkWin(playerPosition.left, "Player One"); //shouldn't call another object from a different object
             }
           // }
         });
       } else if (this.playerNumber === 2){
         $doc.on("keydown", function(event){
-            // if (scoreBoard.gameOver === false){
+            // if (gamePlay.gameOver === false){
             var $playerTwo = $('#player-two');
             var playerPosition = $playerTwo.position();
             if (event.which === 68){
@@ -37,7 +37,7 @@ function Player(playerNumber){
                     $playerTwo.animate({left: playerPosition.left+20}, 50);
                   }
                   console.log('player2: checking win');
-                  scoreBoard.checkWin(playerPosition.left, "Player Two"); //shouldn't call another object from a different object
+                  gamePlay.checkWin(playerPosition.left, "Player Two"); //shouldn't call another object from a different object
             }
           // }
         });
@@ -48,8 +48,8 @@ function Player(playerNumber){
   };
 }
 
-// Scoreboard object
-var scoreBoard = {
+// gamePlay object
+var gamePlay = {
   p1Score: 0,
   p2Score: 0,
   // gameOver: false,
@@ -77,7 +77,7 @@ var scoreBoard = {
         console.log("playerTwo wins");
       }
       // this.gameOver = true;
-      // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
+      // console.log("gamePlay.gameOver = " + gamePlay.gameOver);
       this.reset();
     }
   }
@@ -88,8 +88,8 @@ var gameStart = function(){
   $doc.on("keydown", function startGame(event){
     if (event.keyCode === 32){
       console.log("gameStart");
-      // scoreBoard.gameOver = false;
-        // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
+      // gamePlay.gameOver = false;
+        // console.log("gamePlay.gameOver = " + gamePlay.gameOver);
       $('#start-game').addClass('display-none');
       $('#winners-circle').text('');
       $('#player-one').animate({left: 20}, 0);
