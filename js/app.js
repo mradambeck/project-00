@@ -6,39 +6,44 @@ function Player(playerNumber){
   this.playerName = "Player " + playerNumber;
   // assigning movement to directional keys
   this.movement = function(){
-    if (scoreBoard.gameOver === false){
+    // if (scoreBoard.gameOver === false){
+    console.log("calling movement");
       if (this.playerNumber === 1){
         $doc.on("keydown", function(event){
-          var $playerOne = $('#player-one');
-          var playerPosition = $playerOne.position();
-          if (event.which === 39){
-            event.preventDefault();
-            // console.log('keypress 39');
-            if (playerPosition.left < 850){
-              $playerOne.animate({left: playerPosition.left+20}, 150);
+          // if (scoreBoard.gameOver === false){
+            var $playerOne = $('#player-one');
+            var playerPosition = $playerOne.position();
+            if (event.which === 39){
+              event.preventDefault();
+              // console.log('keypress 39');
+              if (playerPosition.left < 850){
+                $playerOne.animate({left: playerPosition.left+20}, 50);
+              }
+                  console.log('player1: checking win');
+              scoreBoard.checkWin(playerPosition.left, "Player One");
             }
-                // console.log('playerOne-R');
-            scoreBoard.checkWin(playerPosition.left, "Player One");
-          }
+          // }
         });
       } else if (this.playerNumber === 2){
         $doc.on("keydown", function(event){
-          var $playerTwo = $('#player-two');
-          var playerPosition = $playerTwo.position();
-          if (event.which === 68){
-            event.preventDefault();
-            // console.log('keypress 68');
-            if (playerPosition.left < 850){
-                  $playerTwo.animate({left: playerPosition.left+20}, 150);
-                }
-                // console.log('player2-R');
-                scoreBoard.checkWin(playerPosition.left, "Player Two");
-          }
+            // if (scoreBoard.gameOver === false){
+            var $playerTwo = $('#player-two');
+            var playerPosition = $playerTwo.position();
+            if (event.which === 68){
+              event.preventDefault();
+              // console.log('keypress 68');
+              if (playerPosition.left < 850){
+                    $playerTwo.animate({left: playerPosition.left+20}, 50);
+                  }
+                  console.log('player2: checking win');
+                  scoreBoard.checkWin(playerPosition.left, "Player Two");
+            }
+          // }
         });
       }
-    } else {
-      return false;
-    }
+    // } else {
+    //   return false;
+    // }
   };
 }
 
@@ -46,7 +51,7 @@ function Player(playerNumber){
 var scoreBoard = {
   p1Score: 0,
   p2Score: 0,
-  gameOver: false,
+  // gameOver: false,
   reset: function(){
     console.log('reset');
     $('#player-one').animate({left: 20}, 500);
@@ -55,9 +60,10 @@ var scoreBoard = {
     gameStart();
   },
   checkWin: function(position, winner){
-    console.log('checkWin');
+    // console.log('checkWin');
     // checks position to see if at the end of the game board
     if (position > 840 ){
+      console.log("position > 840");
       $('#winners-circle').text(winner + " WINS!");
       if (winner === "Player One"){
         this.p1Score++;
@@ -68,7 +74,8 @@ var scoreBoard = {
         $('#p2-score').text(this.p2Score);
         console.log("playerTwo wins");
       }
-      this.gameOver = true;
+      // this.gameOver = true;
+      // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
       scoreBoard.reset();
     }
   }
@@ -78,10 +85,12 @@ var gameStart = function(){
   // Start game with spacebar
   $doc.on("keydown", function startGame(event){
     if (event.keyCode === 32){
-      this.gameOver = false;
+      console.log("gameStart");
+      // scoreBoard.gameOver = false;
+        // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
       $('#start-game').addClass('display-none');
       $('#winners-circle').text('');
-      console.log("added display none to $startGame");
+      // console.log("added display none to $startGame");
       playerOne.movement();
       playerTwo.movement();
     } else {
@@ -94,7 +103,7 @@ var gameStart = function(){
 var playerOne = new Player(1);
 var playerTwo = new Player(2);
 
-gameStart();
+
 
 $doc.ready(function() {
   console.log( "Document ready!" );
@@ -103,4 +112,5 @@ $doc.ready(function() {
     $('.blink').toggle();
   };
   window.setInterval(blinkfunction, 600);
+  gameStart();
 });
