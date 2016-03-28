@@ -7,6 +7,7 @@ function Player(playerNumber){
   // assigning movement to directional keys
   this.movement = function(){
     // if (scoreBoard.gameOver === false){
+    console.log('scoreboard: ', scoreBoard);
     console.log("calling movement");
       if (this.playerNumber === 1){
         $doc.on("keydown", function(event){
@@ -20,7 +21,7 @@ function Player(playerNumber){
                 $playerOne.animate({left: playerPosition.left+20}, 50);
               }
                   console.log('player1: checking win');
-              scoreBoard.checkWin(playerPosition.left, "Player One");
+              scoreBoard.checkWin(playerPosition.left, "Player One"); //shouldn't call another object from a different object
             }
           // }
         });
@@ -36,7 +37,7 @@ function Player(playerNumber){
                     $playerTwo.animate({left: playerPosition.left+20}, 50);
                   }
                   console.log('player2: checking win');
-                  scoreBoard.checkWin(playerPosition.left, "Player Two");
+                  scoreBoard.checkWin(playerPosition.left, "Player Two"); //shouldn't call another object from a different object
             }
           // }
         });
@@ -62,6 +63,7 @@ var scoreBoard = {
   checkWin: function(position, winner){
     // console.log('checkWin');
     // checks position to see if at the end of the game board
+    
     if (position > 840 ){
       console.log("position > 840");
       $('#winners-circle').text(winner + " WINS!");
@@ -76,7 +78,7 @@ var scoreBoard = {
       }
       // this.gameOver = true;
       // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
-      scoreBoard.reset();
+      this.reset();
     }
   }
 };
@@ -91,8 +93,6 @@ var gameStart = function(){
       $('#start-game').addClass('display-none');
       $('#winners-circle').text('');
       // console.log("added display none to $startGame");
-      playerOne.movement();
-      playerTwo.movement();
     } else {
       return;
     }
@@ -102,7 +102,8 @@ var gameStart = function(){
 // Creates player objects
 var playerOne = new Player(1);
 var playerTwo = new Player(2);
-
+playerOne.movement();
+playerTwo.movement();
 
 
 $doc.ready(function() {
