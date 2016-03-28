@@ -55,15 +55,15 @@ var scoreBoard = {
   // gameOver: false,
   reset: function(){
     console.log('reset');
-    $('#player-one').animate({left: 20}, 500);
-    $('#player-two').animate({left: 20}, 500);
+    $('#player-one').animate({left: 20}, 300);
+    $('#player-two').animate({left: 20}, 300);
     $('#start-game').removeClass('display-none');
     gameStart();
   },
   checkWin: function(position, winner){
     // console.log('checkWin');
     // checks position to see if at the end of the game board
-    
+
     if (position > 840 ){
       console.log("position > 840");
       $('#winners-circle').text(winner + " WINS!");
@@ -92,9 +92,9 @@ var gameStart = function(){
         // console.log("scoreBoard.gameOver = " + scoreBoard.gameOver);
       $('#start-game').addClass('display-none');
       $('#winners-circle').text('');
+      $('#player-one').animate({left: 20}, 0);
+      $('#player-two').animate({left: 20}, 0);
       // console.log("added display none to $startGame");
-    } else {
-      return;
     }
   });
 };
