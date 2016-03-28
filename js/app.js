@@ -13,9 +13,9 @@ function Player(playerNumber){
           var playerPosition = $playerOne.position();
           if (event.which === 39){
             event.preventDefault();
-            console.log('keypress 39');
-            if (playerPosition.left < 200){ //890
-              $playerOne.animate({left: playerPosition.left+5}, 30);
+            // console.log('keypress 39');
+            if (playerPosition.left < 850){
+              $playerOne.animate({left: playerPosition.left+20}, 150);
             }
                 // console.log('playerOne-R');
             scoreBoard.checkWin(playerPosition.left, "Player One");
@@ -27,12 +27,12 @@ function Player(playerNumber){
           var playerPosition = $playerTwo.position();
           if (event.which === 68){
             event.preventDefault();
-            console.log('keypress 68');
-            if (playerPosition.left < 200){ //890
-                  $playerTwo.animate({left: playerPosition.left+5}, 30);
+            // console.log('keypress 68');
+            if (playerPosition.left < 850){
+                  $playerTwo.animate({left: playerPosition.left+20}, 150);
                 }
                 // console.log('player2-R');
-                scoreBoard.checkWin(playerPosition.left, "Player One");
+                scoreBoard.checkWin(playerPosition.left, "Player Two");
           }
         });
       }
@@ -49,17 +49,16 @@ var scoreBoard = {
   gameOver: false,
   reset: function(){
     console.log('reset');
-    $('#player-one').animate({left: 20}, 300);
-    $('#player-two').animate({left: 20}, 300);
-
+    $('#player-one').animate({left: 20}, 500);
+    $('#player-two').animate({left: 20}, 500);
     $('#start-game').removeClass('display-none');
     gameStart();
   },
   checkWin: function(position, winner){
     console.log('checkWin');
     // checks position to see if at the end of the game board
-    if (position > 180 ){ //885
-      alert (winner + " wins!");
+    if (position > 840 ){
+      $('#winners-circle').text(winner + " WINS!");
       if (winner === "Player One"){
         this.p1Score++;
         $('#p1-score').text(this.p1Score);
@@ -80,10 +79,11 @@ var gameStart = function(){
   $doc.on("keydown", function startGame(event){
     if (event.keyCode === 32){
       this.gameOver = false;
+      $('#start-game').addClass('display-none');
+      $('#winners-circle').text('');
+      console.log("added display none to $startGame");
       playerOne.movement();
       playerTwo.movement();
-      $('#start-game').addClass('display-none');
-      console.log("added display none to $startGame");
     } else {
       return;
     }
@@ -99,6 +99,8 @@ gameStart();
 $doc.ready(function() {
   console.log( "Document ready!" );
 
-
-
+  var blinkfunction = function(){
+    $('.blink').toggle();
+  };
+  window.setInterval(blinkfunction, 600);
 });
